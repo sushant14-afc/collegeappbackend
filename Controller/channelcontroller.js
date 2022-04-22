@@ -5,8 +5,16 @@ const Channel = require("../Model/channel")
 
 // to add channel
 exports.addChannel= async (req, res) => {
-    let channel = new channel(req.body)
-    Channel.findOne({ channel_name: Channel.channel_name }, async (error, data) => {
+    let channel = new channel({
+        Name:req.body.name,
+        Type:req.body.type,
+        Description:req.body.description,
+        Like:req.body.like,
+        Dislike:req.body.dislike
+    })
+    Channel.findOne({ 
+        channel_name: Channel.channel_name
+    }, async (error, data) => {
         if (data == null) {
             channel = await channel.save()
             if (!channel) {
